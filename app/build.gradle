@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+apply from: 'tinkerpatch.gradle'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "tapfuns.from.com.tinker"
+        minSdkVersion 14
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+    signingConfigs {
+        release {
+            storeFile file("D:\\tinker-master\\Tinker\\keystory\\tfuns")
+            storePassword "201704050944"
+            keyAlias "tfuns"
+            keyPassword "201704050944"
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    provided("com.tinkerpatch.tinker:tinker-android-anno:1.9.1")
+    compile("com.tinkerpatch.sdk:tinkerpatch-android-sdk:1.2.1")
+}
